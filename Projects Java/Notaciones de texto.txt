@@ -1,0 +1,7 @@
+Formularios: FrmNombreFormular
+Panel: PnlNombrePanel
+Label: LblNombreEtiqueta
+TextFields: TxtNombreTexto
+JButton: BtnNombreBoton
+TexArea: TxaNombre
+JTable: TblNombreTabla
