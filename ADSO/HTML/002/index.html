@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+        function aleatorio (min,max){
+            return Math.floor(Math.random() * (max - min + 1) + min)
+        }
+        
+        function eleccion (jugada){
+            if (jugada == 1){
+                resultado = "piedra 💎"
+            } else if (jugada == 2){
+                resultado = "papel 📜"
+            } else if (jugada == 3){
+                resultado = "tijeras ✂️"
+            } else {
+                resultado = + jugada + " Es una opción incorrecta 😵💥🤯"
+            } 
+            return resultado
+        }
+
+        let jugador = prompt("Elije 1.piedra💎 2.papel📜 3.tijeras✂️")
+        let pc = aleatorio(1,3)
+        
+        alert("Tu eliges " + eleccion(jugador))
+        alert("PC elige " + eleccion(pc))
+        
+        if (pc == jugador) {
+            alert("Empate!")
+        } else if (jugador == 1 && pc == 3) {
+            alert("Ganaste! 🏅")
+        } else if (jugador == 2 && pc == 1) {
+            alert("Ganaste! 🏅")
+        } else if (jugador == 3 && pc == 2) {
+            alert("Ganaste! 🏅")
+        } else {
+            alert("Perdiste 😭")
+        }
+    </script>
+</head>
+<body>
+    <h1>Hola Mundo</h1>
+</body>
+</html>
