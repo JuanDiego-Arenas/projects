@@ -1,9 +1,11 @@
 public class Main {
     public static void main(String[] args) {
         System.out.println(suma(1,2,3));
+
         Coche miCoche = new Coche();
         miCoche.ponerPuertas();
-        System.out.println(miCoche.puestas);
+        miCoche.ponerPuertas();
+        System.out.println("Tu coche tiene " + miCoche.puestas + " puertas");
     }
 
     public static int suma(int a, int b, int c){
