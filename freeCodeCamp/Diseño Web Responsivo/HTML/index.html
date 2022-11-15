@@ -10,7 +10,7 @@
     <main>
       <h1>CatPhotoApp</h1>
 
-      <!-- Su función principal es estructurar semanticamente un documento -->
+      <!-- Su función principal es estructurar semánticamente un documento -->
       <section>
         <h2>Cat Photos</h2>
         <p>Para mas información pulse <a target="_blank" href="https://developer.mozilla.org/es/docs/Web/HTML/Element/a">Aquí</a></p>
@@ -19,18 +19,20 @@
         <a href="https://freecatphotoapp.com"><img src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="A cute orange cat lying on its back."></a>
       </section>
 
-      <!--  -->
+      <!-- Estructura semántica para "Lista de gatos" -->
       <section>
         <h2>Cat Lists</h2>
         <h3>Things cats love:</h3>
 
-        <!--  -->
+        <!-- Lista no ordenada -->
         <ul>
+          <!-- Elemento de lista "item list" -->
           <li>cat nip</li>
           <li>laser pointers</li>
           <li>lasagna</li>
         </ul>
 
+        <!-- Contenido independiente (contenedor de imágenes) -->
         <figure>
           <img src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/lasagna.jpg" alt="A slice of lasagna on a plate.">
           <figcaption>Cats <em>love</em> lasagna.</figcaption>  
@@ -38,7 +40,7 @@
 
         <h3>Top 3 things cats hate:</h3>
 
-        <!--  -->
+        <!-- Lista ordenada 1. 2. 3. -->
         <ol>
           <li>flea treatment</li>
           <li>thunder</li>
@@ -51,23 +53,36 @@
         </figure>
       </section>
 
-      <!--  -->
+      <!-- Estructura de selección semántica -->
       <section>
         <h2>Cat Form</h2>
+
+        <!-- Sección de un documento para enviar información al servidor -->
         <form action="https://freecatphotoapp.com/submit-cat-photo">
 
+          <!-- Permite organizar en grupos los campos de un formulario -->
           <fieldset>
+
+            <!-- Título para un grupo de campos "<fieldset>" -->
             <legend>Is your cat an indoor or outdoor cat?</legend>
+
+            <!-- Control interactivo para enviar datos al servidor -->
             <label><input id="indoor" type="radio" name="indoor-outdoor" value="indoor" checked> Indoor</label>
             <label><input id="outdoor" type="radio" name="indoor-outdoor" value="outdoor"> Outdoor</label>
           </fieldset>
 
+          <!-- Grupo de personalidad -->
           <fieldset>
+
+            <!-- Título -->
             <legend>What's your cat's personality?</legend>
+
+            <!-- Control interactivo para enviar datos al servidor -->
             <input id="loving" type="checkbox" name="personality" value="loving" checked> <label for="loving">Loving</label>
             <input id="lazy" type="checkbox" name="personality" value="lazy"> <label for="lazy">Lazy</label>
             <input id="energetic" type="checkbox" name="personality" value="energetic"> <label for="energetic">Energetic</label>
           </fieldset>
+          
           <input type="text" name="catphotourl" placeholder="cat photo URL" required>
           <button type="submit">Submit</button>
         </form>
