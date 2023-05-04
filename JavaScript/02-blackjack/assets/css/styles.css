@@ -1,0 +1,45 @@
+html, body {
+    margin: 0;
+    background-color: #2f4f30;
+    color: #fff;
+}
+
+.titulo {
+    text-align: center;
+    background-color: #000;
+    color: #fff;
+    padding: 20px;
+    max-width: 100%;
+    min-width: 400px;
+    margin: 25px;
+}
+
+
+    /* display: flexbox;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
+    width: 830px;
+    margin: auto;
+    margin: 0 180px ; */
+    
+    
+    .row, mt-2 {
+        min-width: 450px;
+        max-width: 750px;
+        /* width: 100%; */
+        /* flex-wrap: wrap; */
+        margin: auto;
+        /* justify-items: center; */
+    }
+
+.carta {
+    width: 150px;
+    position: relative;
+    left: 100px;
+    margin-left: -75px;
+}
+
+#computadora-cartas, #jugador-cartas {
+    min-height: 230px;
+}
