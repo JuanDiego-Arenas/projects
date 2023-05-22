@@ -12,8 +12,9 @@
 	const types = ['C', 'D', 'H', 'S'],
 		letters = ['A', 'J', 'K', 'Q'];
 
-	let puntosJugador = 0,
-		puntosComputadora = 0;
+	// let puntosJugador = 0,
+	// 	puntosComputadora = 0;
+	let puntosJugadores = [];
 
 	// Referencias HTML
 	const btnNewCard = document.querySelector('#btnNewCard'),
@@ -25,6 +26,14 @@
 
 	const divPlayerCard = document.querySelector('#jugador-cartas'),
 		divComputerCard = document.querySelector('#computadora-cartas');
+
+	const inicializarJuego = (numJugadores = 1) => {
+		deck = createDeck();
+		for (let i = 0; i < numJugadores; i++) {
+			const element = numJugadores[i];
+			
+		}
+	};
 
 	// Esta función crea una nueva baraja
 	const createDeck = () => {
@@ -44,22 +53,20 @@
 		return _.shuffle(deck);
 	};
 
-	createDeck();
-
 	const pedirCarta = () => {
 		if (deck.length === 0) {
 			throw 'No hay mas cartas en el deck...';
 		}
 
-		let carta = deck.pop();
-		return carta;
+		return deck.pop();
 	};
 
-	// pedirCarta();
 	const valorCarta = carta => {
 		const valor = carta.substring(0, carta.length - 1);
 		return isNaN(valor) ? (valor === 'A' ? 11 : 10) : valor * 1;
 	};
+
+	const acumularPuntos = () => {};
 
 	// Turno de la computadora
 	const turnoComputadora = puntosMinimos => {
