@@ -5,7 +5,7 @@
  * 2S = Two of Spades (Picas)
  */
 
-(() => {
+const modulo = (() => {
 	'use strict';
 
 	let deck = [];
@@ -16,21 +16,30 @@
 
 	// Referencias HTML
 	const btnRefreshGame = document.querySelector('#btnRefreshGame'),
-		btnNewCard = document.querySelector('#btnNewCard'),
-		btnStopGame = document.querySelector('#btnStopGame');
+		  btnNewCard = document.querySelector('#btnNewCard'),
+		  btnStopGame = document.querySelector('#btnStopGame');
 
 	const score = document.querySelectorAll('small'),
-		win = document.querySelectorAll('span');
+		  win = document.querySelectorAll('span');
 
-	const divPlayerCard = document.querySelector('#jugador-cartas'),
-		divComputerCard = document.querySelector('#computadora-cartas');
+	const divCartasJugadores = document.querySelectorAll('.divCartas');
 
 	// Esta función inicializamos
 	const inicializarJuego = (numJugadores = 2) => {
 		deck = createDeck();
+
+		puntosJugadores = [];
+
 		for (let i = 0; i < numJugadores; i++) {
 			puntosJugadores.push(0);
 		}
+
+		score.forEach( elem => elem.innerText = 0 );
+		divCartasJugadores.forEach( elem =>	elem.innerHTML = ''	);
+
+		btnNewCard.disabled = false;
+		btnStopGame.disabled = false;
+
 	};
 
 	// Esta función crea una nueva baraja
@@ -73,22 +82,16 @@
 		return puntosJugadores[turno];
 	};
 
-	// Turno de la computadora
-	const turnoComputadora = puntosMinimos => {
-		do {
-			const card = pedirCarta();
-			acumularPuntos(card, puntosJugadores.length - 1);
+	const crearCarta = (card, turno) => {
+		const imgCard = document.createElement('img');
+		imgCard.src = `./assets/cartas/${card}.png`;
+		imgCard.classList = 'carta';
+		divCartasJugadores[turno].append(imgCard);
+	}	
 
-			// <img class="carta" src="./assets/cartas/2H.png" alt="carta">
-			const imgCard = document.createElement('img');
-			imgCard.src = `./assets/cartas/${card}.png`;
-			imgCard.classList = 'carta';
-			divComputerCard.append(imgCard);
+	const determinarGanador = () => {
 
-			if (puntosMinimos > 21) {
-				break;
-			}
-		} while (puntosComputadora < puntosMinimos && puntosMinimos <= 21);
+		const [ puntosMinimos, puntosComputadora] = puntosJugadores;
 
 		setTimeout(() => {
 			if (puntosComputadora === puntosMinimos) {
@@ -107,21 +110,34 @@
 				win[0].innerText++;
 			}
 		}, 240);
+	}
+
+	// Turno de la computadora
+	const turnoComputadora = (puntosMinimos) => {
+
+		let puntosComputadora = 0;
+
+		do {
+			const card = pedirCarta();
+			puntosComputadora = acumularPuntos(card, puntosJugadores.length - 1);
+
+			crearCarta(card, puntosJugadores.length - 1);
+
+			// if (puntosMinimos > 21) {
+			// 	break;
+			// }
+		} while (puntosComputadora < puntosMinimos && puntosMinimos <= 21);
+
+		determinarGanador();
 	};
 
 	// --------------- Eventos  ---------------
-	btnNewCard.addEventListener('click', () => {
+	btnNewCard.addEventListener('click', () => 
+	{
 		const card = pedirCarta();
-
 		const puntosJugador = acumularPuntos(card, 0);
-		// puntosJugador = puntosJugador + valorCarta(card);
-		// score[0].innerText = puntosJugador;
-
-		// <img class="carta" src="./assets/cartas/2H.png" alt="carta">
-		const imgCard = document.createElement('img');
-		imgCard.src = `./assets/cartas/${card}.png`;
-		imgCard.classList = 'carta';
-		divPlayerCard.append(imgCard);
+		
+		crearCarta(card, 0);
 
 		if (puntosJugador > 21) {
 			btnNewCard.disabled = true;
@@ -139,30 +155,11 @@
 	btnStopGame.addEventListener('click', () => {
 		btnStopGame.disabled = true;
 		btnNewCard.disabled = true;
-		turnoComputadora(puntosJugador);
+		turnoComputadora(puntosJugadores);
 	});
 
-	const cleanBoard = board => {
-		const div = document.querySelector(board);
-		const img = div.querySelectorAll('img');
-		img.forEach(carta => {
-			carta.remove();
-		});
+	return {
+		nuevoJuego: inicializarJuego
 	};
 
-	btnRefreshGame.addEventListener('click', () => {
-		cleanBoard('#jugador-cartas');
-		cleanBoard('#computadora-cartas');
-
-		inicializarJuego();
-
-		// puntosJugador = 0;
-		// puntosComputadora = 0;
-
-		score[0].innerText = 0;
-		score[1].innerText = 0;
-
-		btnNewCard.disabled = false;
-		btnStopGame.disabled = false;
-	});
 })();
