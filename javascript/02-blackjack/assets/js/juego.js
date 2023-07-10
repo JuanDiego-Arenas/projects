@@ -10,16 +10,14 @@
 
 	let deck = [];
 	const types = ['C', 'D', 'H', 'S'],
-		letters = ['A', 'J', 'K', 'Q'];
+    	  letters = ['A', 'J', 'K', 'Q'];
 
-	// let puntosJugador = 0,
-	// 	puntosComputadora = 0;
 	let puntosJugadores = [];
 
 	// Referencias HTML
-	const btnNewCard = document.querySelector('#btnNewCard'),
-		btnStopGame = document.querySelector('#btnStopGame'),
-		btnRefreshGame = document.querySelector('#btnRefreshGame');
+	const btnRefreshGame = document.querySelector('#btnRefreshGame'),
+		btnNewCard = document.querySelector('#btnNewCard'),
+		btnStopGame = document.querySelector('#btnStopGame');
 
 	const score = document.querySelectorAll('small'),
 		win = document.querySelectorAll('span');
@@ -27,11 +25,11 @@
 	const divPlayerCard = document.querySelector('#jugador-cartas'),
 		divComputerCard = document.querySelector('#computadora-cartas');
 
-	const inicializarJuego = (numJugadores = 1) => {
+	// Esta función inicializamos
+	const inicializarJuego = (numJugadores = 2) => {
 		deck = createDeck();
 		for (let i = 0; i < numJugadores; i++) {
-			const element = numJugadores[i];
-			
+			puntosJugadores.push(0);
 		}
 	};
 
@@ -53,6 +51,7 @@
 		return _.shuffle(deck);
 	};
 
+	// Se pide una carta, lo que hace es eliminar la ultima carta del deck y antes de eliminarla hace toda la lógica
 	const pedirCarta = () => {
 		if (deck.length === 0) {
 			throw 'No hay mas cartas en el deck...';
@@ -61,20 +60,24 @@
 		return deck.pop();
 	};
 
+	// Esta función nos da el valor de la carta
 	const valorCarta = carta => {
 		const valor = carta.substring(0, carta.length - 1);
 		return isNaN(valor) ? (valor === 'A' ? 11 : 10) : valor * 1;
 	};
 
-	const acumularPuntos = () => {};
+	// Turno: 0 = primer jugador y el último será la computadora
+	const acumularPuntos = (card, turno) => {
+		puntosJugadores[turno] = puntosJugadores[turno] + valorCarta(card);
+		score[turno].innerText = puntosJugadores[turno];
+		return puntosJugadores[turno];
+	};
 
 	// Turno de la computadora
 	const turnoComputadora = puntosMinimos => {
 		do {
 			const card = pedirCarta();
-
-			puntosComputadora = puntosComputadora + valorCarta(card);
-			score[1].innerText = puntosComputadora;
+			acumularPuntos(card, puntosJugadores.length - 1);
 
 			// <img class="carta" src="./assets/cartas/2H.png" alt="carta">
 			const imgCard = document.createElement('img');
@@ -106,12 +109,13 @@
 		}, 240);
 	};
 
-	// Eventos
+	// --------------- Eventos  ---------------
 	btnNewCard.addEventListener('click', () => {
 		const card = pedirCarta();
 
-		puntosJugador = puntosJugador + valorCarta(card);
-		score[0].innerText = puntosJugador;
+		const puntosJugador = acumularPuntos(card, 0);
+		// puntosJugador = puntosJugador + valorCarta(card);
+		// score[0].innerText = puntosJugador;
 
 		// <img class="carta" src="./assets/cartas/2H.png" alt="carta">
 		const imgCard = document.createElement('img');
@@ -150,11 +154,10 @@
 		cleanBoard('#jugador-cartas');
 		cleanBoard('#computadora-cartas');
 
-		deck = [];
-		deck = createDeck();
+		inicializarJuego();
 
-		puntosJugador = 0;
-		puntosComputadora = 0;
+		// puntosJugador = 0;
+		// puntosComputadora = 0;
 
 		score[0].innerText = 0;
 		score[1].innerText = 0;
