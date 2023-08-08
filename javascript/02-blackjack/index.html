@@ -21,8 +21,8 @@
     <section class="row mt-2">
         <div class="col text-center">
             <button id="btnRefreshGame" class="btn btn-danger">Nuevo Juego</button>
-            <button id="btnNewCard" class="btn btn-primary">Pedir Carta</button>
-            <button id="btnStopGame" class="btn btn-primary">Detener</button>
+            <button id="btnNewCard" disabled="disabled" class="btn btn-primary">Pedir Carta</button>
+            <button id="btnStopGame" disabled="disabled" class="btn btn-primary">Detener</button>
         </div>
     </section>
 
@@ -30,10 +30,7 @@
         <div class="col deck">
             <h1>Jugador 1 - <small>0</small></h1>
             <h2>Score <span>0</span></h2>
-            <div id="jugador-cartas">
-                <!-- <img class="carta" src="./assets/cartas/2H.png" alt="carta">
-                <img class="carta" src="./assets/cartas/2H.png" alt="carta">
-                <img class="carta" src="./assets/cartas/2H.png" alt="carta"> -->
+            <div id="jugador-cartas" class="divCartas">
                 <!-- <img class="carta" src="./assets/cartas/2H.png" alt="carta">  -->
             </div>
         </div>
@@ -43,11 +40,7 @@
         <div class="col deck">
             <h1>Computadora 1 - <small>0</small></h1>
             <h2>Score <span>0</span></h2>
-            <div id="computadora-cartas">
-                <!-- <img class="carta" src="./assets/cartas/7H.png" alt="carta">
-                <img class="carta" src="./assets/cartas/7H.png" alt="carta">
-                <img class="carta" src="./assets/cartas/7H.png" alt="carta">
-                <img class="carta" src="./assets/cartas/7H.png" alt="carta"> -->
+            <div id="computadora-cartas" class="divCartas">
                 <!-- <img class="carta" src="./assets/cartas/7H.png" alt="carta">  -->
             </div>
         </div>
@@ -55,6 +48,17 @@
 
     <script src="./assets/js/underscore-min.js"></script>
     <script src="./assets/js/juego.js"></script>
+
+    <script>
+
+        modulo.nuevoJuego();
+
+        document.querySelector('#btnRefreshGame').addEventListener('click', () => {
+            modulo.nuevoJuego();
+        });
+
+    </script>
+
 </body>
 
 </html>

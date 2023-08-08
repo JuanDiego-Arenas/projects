@@ -1,3 +1,9 @@
+import './style.css';
+import _ from 'underscore';
+import javascriptLogo from './javascript.svg';
+import viteLogo from '/vite.svg';
+import { setupCounter } from './counter.js';
+
 /**
  * 2C = Two of Clovers (Tréboles)
  * 2D = Two of Diamonds (Diamantes)
@@ -10,17 +16,17 @@ const modulo = (() => {
 
 	let deck = [];
 	const types = ['C', 'D', 'H', 'S'],
-    	  letters = ['A', 'J', 'K', 'Q'];
+		letters = ['A', 'J', 'K', 'Q'];
 
 	let puntosJugadores = [];
 
 	// Referencias HTML
 	const btnRefreshGame = document.querySelector('#btnRefreshGame'),
-		  btnNewCard = document.querySelector('#btnNewCard'),
-		  btnStopGame = document.querySelector('#btnStopGame');
+		btnNewCard = document.querySelector('#btnNewCard'),
+		btnStopGame = document.querySelector('#btnStopGame');
 
 	const score = document.querySelectorAll('small'),
-		  win = document.querySelectorAll('span');
+		win = document.querySelectorAll('span');
 
 	const divCartasJugadores = document.querySelectorAll('.divCartas');
 
@@ -34,12 +40,11 @@ const modulo = (() => {
 			puntosJugadores.push(0);
 		}
 
-		score.forEach( elem => elem.innerText = 0 );
-		divCartasJugadores.forEach( elem =>	elem.innerHTML = ''	);
+		score.forEach(elem => (elem.innerText = 0));
+		divCartasJugadores.forEach(elem => (elem.innerHTML = ''));
 
 		btnNewCard.disabled = false;
 		btnStopGame.disabled = false;
-
 	};
 
 	// Esta función crea una nueva baraja
@@ -87,11 +92,10 @@ const modulo = (() => {
 		imgCard.src = `./assets/cartas/${card}.png`;
 		imgCard.classList = 'carta';
 		divCartasJugadores[turno].append(imgCard);
-	}	
+	};
 
 	const determinarGanador = () => {
-
-		const [ puntosMinimos, puntosComputadora] = puntosJugadores;
+		const [puntosMinimos, puntosComputadora] = puntosJugadores;
 
 		setTimeout(() => {
 			if (puntosComputadora === puntosMinimos) {
@@ -110,16 +114,18 @@ const modulo = (() => {
 				win[0].innerText++;
 			}
 		}, 240);
-	}
+	};
 
 	// Turno de la computadora
-	const turnoComputadora = (puntosMinimos) => {
-
+	const turnoComputadora = puntosMinimos => {
 		let puntosComputadora = 0;
 
 		do {
 			const card = pedirCarta();
-			puntosComputadora = acumularPuntos(card, puntosJugadores.length - 1);
+			puntosComputadora = acumularPuntos(
+				card,
+				puntosJugadores.length - 1
+			);
 
 			crearCarta(card, puntosJugadores.length - 1);
 
@@ -132,11 +138,10 @@ const modulo = (() => {
 	};
 
 	// --------------- Eventos  ---------------
-	btnNewCard.addEventListener('click', () => 
-	{
+	btnNewCard.addEventListener('click', () => {
 		const card = pedirCarta();
 		const puntosJugador = acumularPuntos(card, 0);
-		
+
 		crearCarta(card, 0);
 
 		if (puntosJugador > 21) {
@@ -159,7 +164,6 @@ const modulo = (() => {
 	});
 
 	return {
-		nuevoJuego: inicializarJuego
+		nuevoJuego: inicializarJuego,
 	};
-
 })();
